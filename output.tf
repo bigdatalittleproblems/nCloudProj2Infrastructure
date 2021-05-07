@@ -25,3 +25,7 @@ output "public_subnets" {
 output "private_subnets" {
   value = aws_subnet.private.*.id
 }
+
+# output "redis_endpoint" {
+#   value = data.aws_elasticache_cluster.example.redis_endpoint
+# }

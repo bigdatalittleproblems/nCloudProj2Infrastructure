@@ -1,2 +1,4 @@
 *.tfvars
 backend.tf
+.terraform/
+.terraform*
