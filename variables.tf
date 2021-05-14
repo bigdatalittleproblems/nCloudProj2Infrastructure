@@ -11,10 +11,12 @@ locals {
   count = var.no_of_azs == 0 ? length(data.aws_availability_zones.available.names) : var.no_of_azs
 }
 variable "region" {
-  type = string
+  type    = string
+  default = "us-east-1"
 }
 variable "profile" {
-  type = string
+  type    = string
+  default = "default"
 }
 variable "project" {
   default = "nCloudProject2"
