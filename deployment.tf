@@ -1,8 +1,8 @@
-provider "kubernetes" {
-  host                   = data.aws_eks_cluster.cluster.endpoint
-  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
-  token                  = data.aws_eks_cluster_auth.cluster.token
-} 
+# provider "kubernetes" {
+#   host                   = data.aws_eks_cluster.cluster.endpoint
+#   cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
+#   token                  = data.aws_eks_cluster_auth.cluster.token
+# }
 # resource "kubernetes_namespace" "test" {
 #   metadata {
 #     name = "nginx"
@@ -10,8 +10,9 @@ provider "kubernetes" {
 # }
 # resource "kubernetes_deployment" "test" {
 #   metadata {
-#     name      = "nginx"
-#     namespace = kubernetes_namespace.test.metadata.0.name
+#     name        = "nginx"
+#     namespace   = kubernetes_namespace.test.metadata.0.name
+#     annotations = { "service.beta.kubernetes.io/aws-load-balancer-type" : "nlb-ip" }
 #   }
 #   spec {
 #     replicas = 2
@@ -45,11 +46,12 @@ provider "kubernetes" {
 #   }
 #   spec {
 #     selector = {
+    
 #       app = kubernetes_deployment.test.spec.0.template.0.metadata.0.labels.app
 #     }
-#     type = "NodePort"
+#     type = "LoadBalancer"
 #     port {
-#       node_port   = 30201
+#       # node_port   = 30201
 #       port        = 80
 #       target_port = 80
 #     }

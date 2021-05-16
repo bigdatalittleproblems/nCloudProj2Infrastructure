@@ -40,11 +40,14 @@ output "config_map_aws_auth" {
   description = "A kubernetes configuration to authenticate to this EKS cluster."
   value       = module.my-cluster.config_map_aws_auth
 }
-output "redisendpoint"{
-    description = "endpoint for Redis"
+# output "lb_ip" {
+#   value = kubernetes_service.test.status.0.load_balancer.0.ingress.0.hostname
+# }
+# output "redisendpoint"{
+#     description = "endpoint for Redis"
 
-  value=aws_elasticache_cluster.projectcache.cache_nodes.address
-}
+#   value=aws_elasticache_cluster.projectcache.cache_nodes.address
+# }
 
 # output "redis_endpoint" {
 #   value = data.aws_elasticache_cluster.example.redis_endpoint
