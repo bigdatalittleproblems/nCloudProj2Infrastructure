@@ -10,8 +10,8 @@ resource "aws_instance" "crdeployerserver" {
   subnet_id              = aws_subnet.public[0].id
   vpc_security_group_ids = [aws_security_group.crdeployerserver_sg.id]
   iam_instance_profile   = aws_iam_instance_profile.crdeployerserver_profile.name
-  ebs_block_device  {
-      device_name = "/dev/xvda"
+  ebs_block_device {
+    device_name = "/dev/xvda"
     volume_size = 20
     volume_type = "standard"
   }
@@ -21,9 +21,8 @@ resource "aws_instance" "crdeployerserver" {
   user_data = <<EOF
 #!/bin/bash 
 yum update -y 
-
 EOF
-  
+
 }
 data "aws_ami" "amazon-linux-2" {
   most_recent = true

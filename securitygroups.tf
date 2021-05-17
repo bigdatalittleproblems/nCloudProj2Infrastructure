@@ -79,9 +79,9 @@ resource "aws_security_group" "crdeployerserver_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   egress {
-    from_port       = 0
-    to_port         = 0
-    protocol        = "-1"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
@@ -117,4 +117,75 @@ resource "aws_iam_role" "ec2Roledeployer" {
       }
     )
   }
+}
+
+data "aws_iam_policy_document" "instance-assume-role-policy2" {
+  statement {
+    actions = ["sts:AssumeRole"]
+  }
+}
+
+resource "aws_iam_role" "AllowExternalDNSUpdates_role" {
+  name               = "AllowExternalDNSUpdates_role"
+  assume_role_policy = data.aws_iam_policy_document.instance-assume-role-policy2.json
+  inline_policy {
+    name = "AllowExternalDNSUpdates"
+
+    policy = jsonencode({
+      "Version" : "2012-10-17",
+      "Statement" : [
+        {
+          "Effect" : "Allow",
+          "Action" : [
+            "route53:ChangeResourceRecordSets"
+          ],
+          "Resource" : [
+            "arn:aws:route53:::hostedzone/*"
+          ]
+        },
+        {
+          "Effect" : "Allow",
+          "Action" : [
+            "route53:ListHostedZones",
+            "route53:ListResourceRecordSets"
+          ],
+          "Resource" : [
+            "*"
+          ]
+        }
+      ]
+      }
+
+    )
+  }
+}
+
+resource "aws_iam_policy" "policy" {
+  name        = "${random_pet.pet_name.id}-policy"
+  description = "My test policy"
+
+  policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Effect" : "Allow",
+        "Action" : [
+          "route53:ChangeResourceRecordSets"
+        ],
+        "Resource" : [
+          "arn:aws:route53:::hostedzone/*"
+        ]
+      },
+      {
+        "Effect" : "Allow",
+        "Action" : [
+          "route53:ListHostedZones",
+          "route53:ListResourceRecordSets"
+        ],
+        "Resource" : [
+          "*"
+        ]
+      }
+    ]
+  })
 }

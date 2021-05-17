@@ -10,30 +10,29 @@ provider "kubernetes" {
 # }
 # resource "kubernetes_deployment" "test" {
 #   metadata {
-#     name        = "nginx"
-#     namespace   = kubernetes_namespace.test.metadata.0.name
-#     annotations = { "service.beta.kubernetes.io/aws-load-balancer-type" : "nlb-ip" }
+#     name        = "external-dns"
 #   }
 #   spec {
-#     replicas = 2
+#     strategy = {type:"Recreate"}
 #     selector {
 #       match_labels = {
-#         app = "MyTestApp"
+#         app = "external-dns"
 #       }
 #     }
 #     template {
 #       metadata {
 #         labels = {
-#           app = "MyTestApp"
+#           app = "external-dns"
 #         }
+#       annotations = {"iam.amazonaws.com/role": aws_iam_role.AllowExternalDNSUpdates_role.arn} 
 #       }
 #       spec {
 #         container {
-#           image = "nginx"
-#           name  = "nginx-container"
-#           port {
-#             container_port = 80
-#           }
+#           name  = "external-dns"
+#           image = "k8s.gcr.io/external-dns/external-dns:v0.7.6"
+#           args =[
+
+#           ]
 #         }
 #       }
 #     }
