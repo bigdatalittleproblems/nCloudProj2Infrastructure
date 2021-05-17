@@ -46,7 +46,7 @@ provider "kubernetes" {
 #   }
 #   spec {
 #     selector = {
-    
+
 #       app = kubernetes_deployment.test.spec.0.template.0.metadata.0.labels.app
 #     }
 #     type = "LoadBalancer"

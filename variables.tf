@@ -21,7 +21,10 @@ variable "profile" {
 variable "project" {
   default = "nCloudProject2"
 }
-
+variable "deployerkey" {
+  # description = 'Provide the Public key that you want to use to connect to Ec2'
+  type = string
+}
 ##########################################
 # variable "map_accounts" {
 #   description = "Additional AWS account numbers to add to the aws-auth configmap."
