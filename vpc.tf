@@ -19,6 +19,8 @@ resource "aws_subnet" "public" {
     Name        = "${var.name} Public ${terraform.workspace}"
     Environment = terraform.workspace
     terraform   = "true"
+    "kubernetes.io/cluster/cluster-name" = "shared"
+    "kubernetes.io/role/elb" = "1"
   }
 }
 

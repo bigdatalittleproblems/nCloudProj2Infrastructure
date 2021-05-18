@@ -41,18 +41,20 @@ output "config_map_aws_auth" {
   value       = module.my-cluster.config_map_aws_auth
 }
 
-output "deployeripaddress" {
-  description = "the PublicIP address to SSh into the Deployer Ec2"
-  value       = aws_instance.crdeployerserver.public_ip
-}
-output "deployeripaddressarn" {
-  description = "the PublicIP address to SSh into the Deployer Ec2"
-  value       = aws_iam_role.AllowExternalDNSUpdates_role.arn
-}
-output "deployeripaddressid" {
-  description = "the PublicIP address to SSh into the Deployer Ec2"
-  value       = aws_iam_role.AllowExternalDNSUpdates_role.id
-}
+# output "deployeripaddress" {
+#   description = "the PublicIP address to SSh into the Deployer Ec2"
+#   value       = aws_instance.crdeployerserver.public_ip
+# }
+# output "AllowExternalDNSUpdates_rolearn" {
+#   description = "the PublicIP address to SSh into the Deployer Ec2"
+#   value       = aws_iam_role.AllowExternalDNSUpdates_role.arn
+# }
+
+
+# output "deployeripaddressid" {
+#   description = "the PublicIP address to SSh into the Deployer Ec2"
+#   value       = aws_iam_role.AllowExternalDNSUpdates_role.id
+# }
 # output "lb_ip" {
 #   value = kubernetes_service.test.status.0.load_balancer.0.ingress.0.hostname
 # }

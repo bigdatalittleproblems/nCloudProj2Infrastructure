@@ -125,43 +125,43 @@ data "aws_iam_policy_document" "instance-assume-role-policy2" {
   }
 }
 
-resource "aws_iam_role" "AllowExternalDNSUpdates_role" {
-  name               = "AllowExternalDNSUpdates_role"
-  assume_role_policy = data.aws_iam_policy_document.instance-assume-role-policy2.json
-  inline_policy {
-    name = "AllowExternalDNSUpdates"
+# resource "aws_iam_role" "AllowExternalDNSUpdates_role" {
+#   name               = "AllowExternalDNSUpdates_role"
+#   assume_role_policy = data.aws_iam_policy_document.instance-assume-role-policy2.json
+#   inline_policy {
+#     name = "AllowExternalDNSUpdates"
 
-    policy = jsonencode({
-      "Version" : "2012-10-17",
-      "Statement" : [
-        {
-          "Effect" : "Allow",
-          "Action" : [
-            "route53:ChangeResourceRecordSets"
-          ],
-          "Resource" : [
-            "arn:aws:route53:::hostedzone/*"
-          ]
-        },
-        {
-          "Effect" : "Allow",
-          "Action" : [
-            "route53:ListHostedZones",
-            "route53:ListResourceRecordSets"
-          ],
-          "Resource" : [
-            "*"
-          ]
-        }
-      ]
-      }
+#     policy = jsonencode({
+#       "Version" : "2012-10-17",
+#       "Statement" : [
+#         {
+#           "Effect" : "Allow",
+#           "Action" : [
+#             "route53:ChangeResourceRecordSets"
+#           ],
+#           "Resource" : [
+#             "arn:aws:route53:::hostedzone/*"
+#           ]
+#         },
+#         {
+#           "Effect" : "Allow",
+#           "Action" : [
+#             "route53:ListHostedZones",
+#             "route53:ListResourceRecordSets"
+#           ],
+#           "Resource" : [
+#             "*"
+#           ]
+#         }
+#       ]
+#       }
 
-    )
-  }
-}
+#     )
+#   }
+# }
 
 resource "aws_iam_policy" "policy" {
-  name        = "${random_pet.pet_name.id}-policy"
+  name        = "AllowExternalDNSUpdates_policy"
   description = "My test policy"
 
   policy = jsonencode({
